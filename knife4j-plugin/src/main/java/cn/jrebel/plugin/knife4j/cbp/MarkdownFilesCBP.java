@@ -11,14 +11,14 @@ public class MarkdownFilesCBP extends JavassistClassBytecodeProcessor {
         cp.importPackage("java.util.List");
         cp.importPackage("cn.jrebel.plugin.knife4j.utils");
         cp.importPackage("com.github.xiaoymin.knife4j.spring.model.MarkdownFiles");
-        cp.importPackage("cn.jrebel.plugin.knife4j.utils.FolderListener");
+        cp.importPackage("cn.jrebel.plugin.knife4j.utils.MarkdownFolderListener");
         cp.importPackage("java.io.File");
         cp.importPackage("org.springframework.core.io.Resource");
         cp.importPackage("java.util.ArrayList");
 
         ctClass.addField(CtField.make("public boolean _flag=true;", ctClass));
         ctClass.getDeclaredMethod("createMarkdownFile").insertBefore(
-                "{if(_flag){FolderListener.register($1.getFile().getParent(),$0);}this._flag=false;}"
+                "{if(_flag){MarkdownFolderListener.register($1.getFile().getParent(),$0);}this._flag=false;}"
         );
     }
 }

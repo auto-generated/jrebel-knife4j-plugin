@@ -1,6 +1,8 @@
 package cn.jrebel.plugin.knife4j.utils;
 
 import com.github.xiaoymin.knife4j.spring.model.MarkdownFiles;
+import org.zeroturnaround.javarebel.Logger;
+import org.zeroturnaround.javarebel.LoggerFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,8 +11,10 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-public class FolderListener {
+public class MarkdownFolderListener {
     private static long lastTime;
+
+    private static final Logger log = LoggerFactory.getLogger("knife4jPlugin");
 
     public static void register(String pathName, MarkdownFiles markdownFiles) {
         if (pathName == null && !"".equals(pathName)) {
@@ -22,6 +26,7 @@ public class FolderListener {
             ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
             scheduledExecutorService.scheduleAtFixedRate(() -> {
                 if (file.lastModified() > lastTime) {
+                    log.info("Reloading knife4j markdown");
                     markdownFiles.setMarkdownFiles(new ArrayList<>());
                     markdownFiles.init();
                     lastTime = file.lastModified();
