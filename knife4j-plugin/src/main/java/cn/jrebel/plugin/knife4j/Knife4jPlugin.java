@@ -1,6 +1,5 @@
 package cn.jrebel.plugin.knife4j;
 
-import cn.jrebel.plugin.knife4j.cbp.Knife4jControllerCBP;
 import cn.jrebel.plugin.knife4j.cbp.MarkdownFilesCBP;
 import org.zeroturnaround.javarebel.ClassResourceSource;
 import org.zeroturnaround.javarebel.Integration;
@@ -18,10 +17,6 @@ public class Knife4jPlugin implements Plugin {
     public void preinit() {
         Integration integration = IntegrationFactory.getInstance();
         ClassLoader cl = getClass().getClassLoader();
-
-        integration.addIntegrationProcessor(cl,
-                "com.github.xiaoymin.knife4j.spring.web.Knife4jController",
-                new Knife4jControllerCBP());
         integration.addIntegrationProcessor(cl,
                 "com.github.xiaoymin.knife4j.spring.model.MarkdownFiles",
                 new MarkdownFilesCBP());
