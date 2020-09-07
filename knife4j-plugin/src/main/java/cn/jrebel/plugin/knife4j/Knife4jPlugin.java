@@ -1,6 +1,10 @@
 package cn.jrebel.plugin.knife4j;
 
+import cn.jrebel.plugin.knife4j.cbp.Knife4jControllerCBP;
+import cn.jrebel.plugin.knife4j.cbp.MarkdownFilesCBP;
 import org.zeroturnaround.javarebel.ClassResourceSource;
+import org.zeroturnaround.javarebel.Integration;
+import org.zeroturnaround.javarebel.IntegrationFactory;
 import org.zeroturnaround.javarebel.Plugin;
 
 /**
@@ -12,12 +16,21 @@ import org.zeroturnaround.javarebel.Plugin;
 public class Knife4jPlugin implements Plugin {
     @Override
     public void preinit() {
+        Integration integration = IntegrationFactory.getInstance();
+        ClassLoader cl = getClass().getClassLoader();
+
+        integration.addIntegrationProcessor(cl,
+                "com.github.xiaoymin.knife4j.spring.web.Knife4jController",
+                new Knife4jControllerCBP());
+        integration.addIntegrationProcessor(cl,
+                "com.github.xiaoymin.knife4j.spring.model.MarkdownFiles",
+                new MarkdownFilesCBP());
 
     }
 
     @Override
     public boolean checkDependencies(ClassLoader cl, ClassResourceSource crs) {
-        return false;
+        return crs.getClassResource("com.github.xiaoymin.knife4j.spring.web.Knife4jController") != null;
     }
 
     @Override
@@ -27,7 +40,7 @@ public class Knife4jPlugin implements Plugin {
 
     @Override
     public String getName() {
-        return null;
+        return "jrebel-knife4j-plugin";
     }
 
     @Override
@@ -37,12 +50,12 @@ public class Knife4jPlugin implements Plugin {
 
     @Override
     public String getAuthor() {
-        return null;
+        return "i@jinghong.me";
     }
 
     @Override
     public String getWebsite() {
-        return null;
+        return "https://jrebel.cn";
     }
 
     @Override
