@@ -26,7 +26,7 @@ public class MarkdownFolderListener {
             ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
             scheduledExecutorService.scheduleAtFixedRate(() -> {
                 if (file.lastModified() > lastTime) {
-                    log.info("Reloading knife4j markdown");
+                    log.infoEcho("Reloading knife4j markdown");
                     markdownFiles.setMarkdownFiles(new ArrayList<>());
                     markdownFiles.init();
                     lastTime = file.lastModified();
