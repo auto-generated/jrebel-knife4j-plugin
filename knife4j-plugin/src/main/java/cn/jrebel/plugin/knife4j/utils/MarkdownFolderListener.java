@@ -17,9 +17,6 @@ public class MarkdownFolderListener {
     private static final Logger log = LoggerFactory.getLogger("knife4jPlugin");
 
     public static void register(String pathName, MarkdownFiles markdownFiles) {
-        if (pathName == null && !"".equals(pathName)) {
-            return;
-        }
         final File file = new File(pathName);
         if (file.exists()) {
             lastTime = file.lastModified();
