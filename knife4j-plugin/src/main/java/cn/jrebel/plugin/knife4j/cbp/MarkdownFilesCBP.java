@@ -3,9 +3,10 @@ package cn.jrebel.plugin.knife4j.cbp;
 import org.zeroturnaround.bundled.javassist.ClassPool;
 import org.zeroturnaround.bundled.javassist.CtClass;
 import org.zeroturnaround.bundled.javassist.CtField;
+import org.zeroturnaround.javarebel.integration.support.CacheAwareJavassistClassBytecodeProcessor;
 import org.zeroturnaround.javarebel.integration.support.JavassistClassBytecodeProcessor;
 
-public class MarkdownFilesCBP extends JavassistClassBytecodeProcessor {
+public class MarkdownFilesCBP extends CacheAwareJavassistClassBytecodeProcessor {
     @Override
     public void process(ClassPool cp, ClassLoader cl, CtClass ctClass) throws Exception {
         cp.importPackage("java.util.List");
